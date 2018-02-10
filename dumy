@@ -1,0 +1,21 @@
+$faker = Faker\Factory::create();
+
+      for($i=0; $i<=20; $i++) {
+        App\Book::create([
+          'title' => $faker->words($nb = 5),
+          'description' => $faker->text($maxNbChars = 150),
+          'author' => $faker->name,
+          'created_at' => Carbon::now(),
+          'updated_at' => Carbon::now()
+        ]);
+      }
+
+
+      DB::table('books')->insert([
+              'title' => 'A Wrinkle in Time',
+              'description' => 'A young girl goes on a mission to save her father who has
+                            gone missing after working on a mysterious project called a tesseract.',
+              'author' => 'Madeleine L\'Engle',
+              'created_at' => Carbon::now(),
+              'updated_at' => Carbon::now()
+            ]);
