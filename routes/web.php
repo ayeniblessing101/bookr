@@ -19,9 +19,10 @@ $router->get('/', function () use ($router) {
 $router->get('/key', function () {
     return str_random(32);
 });
-$router->group(['prefix' => 'api/v1'], function () use ($router) {
+$router->group(['prefix' => '/api/v1'], function () use ($router) {
 
-  $router->get('/books', 'BooksController@index');
+  $router->get('/books', 'BooksController@getAllBooks');
 
+  $router->get('/books/{id}', 'BooksController@getABook');
 
 });

@@ -11,13 +11,46 @@ class BooksControllerTest extends TestCase
    *
    * @return void
    */
-  public function testGetAllBooks()
+  public function testShouldGetAllBooks()
   {
-    $this->get('/books')->seeJson([
+    $this->get('api/v1/books')->seeJson([
       'title' => 'War of the Worlds'
     ])
     ->seeJson([
       'title' => 'A Wrinkle in Time'
     ]);
+  }
+
+  /**
+   * Get a book controller test
+   *
+   * @return void
+   */
+  public function testShouldGetABook() {
+    $this
+      ->get('/api/v1/books/1')
+      ->seeStatusCode(200)
+      ->seeJson([
+        'id' => 1,
+        'title' => 'War of the Worlds',
+        'description' => 'A science fiction masterpiece about Martians invading London',
+        'author' => 'H. G. Wells'
+      ]);
+    }
+
+  /**
+   * Get a book controller test
+   *
+   * @return void
+   */
+  public function testShouldThrowAnErrorWhenBookIdNotFound() {
+    $this
+      ->get('/api/v1/books/9999')
+      ->seeStatusCode(404)
+      ->seeJson([
+        'error' => [
+          'message' => 'Book not found'
+        ],
+      ]);
   }
 }
