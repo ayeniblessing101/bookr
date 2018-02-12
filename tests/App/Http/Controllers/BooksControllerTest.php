@@ -22,7 +22,7 @@ class BooksControllerTest extends TestCase
   }
 
   /**
-   * Get a book controller test
+   * Get all books test
    *
    * @return void
    */
@@ -39,7 +39,7 @@ class BooksControllerTest extends TestCase
     }
 
   /**
-   * Get a book controller test
+   * Get a book test
    *
    * @return void
    */
@@ -52,5 +52,23 @@ class BooksControllerTest extends TestCase
           'message' => 'Book not found'
         ],
       ]);
+  }
+
+  /**
+   * Create a new book test
+   *
+   * @return array
+   */
+  public function testShouldCreateBook() {
+    $this->post('/api/v1/books', [
+      'title' => 'The Invisible Man',
+      'description' => 'An invisible man is trapped in the terror of his own
+creation',
+      'author' => 'H. G. Wells'
+    ]);
+
+    $this
+      ->seeJson(['created' => true])
+      ->seeInDatabase('books', ['title' => 'The Invisible Man']);
   }
 }
