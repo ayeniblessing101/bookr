@@ -3,7 +3,11 @@
   namespace App\Http\Controllers;
 
   use App\Book;
+
   use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+  use Illuminate\Http\Request;
+  use Mockery\Exception;
 
 
   /**
@@ -35,5 +39,21 @@
           ]
         ], 404);
       }
+    }
+
+    /**
+     * Post /api/v1/books
+     *
+     * @param integer $request
+     * @return mixed
+     */
+    public function createBook(Request $request) {
+
+        $book = Book::create($request->all());
+
+      return response()->json(['created' => true], 201,
+        [
+          'Location' => route('book.get', ['id' => $book->id])
+        ]);
     }
   }

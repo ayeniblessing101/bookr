@@ -21,8 +21,13 @@ $router->get('/key', function () {
 });
 $router->group(['prefix' => '/api/v1'], function () use ($router) {
 
-  $router->get('/books', 'BooksController@getAllBooks');
+  $router->get('/books', ['uses' => 'BooksController@getAllBooks']);
 
-  $router->get('/books/{id}', 'BooksController@getABook');
+  $router->get('/books/{id}', [
+    'as' => 'book.get',
+    'uses' => 'BooksController@getABook'
+  ]);
+
+  $router->post('/books', ['uses' => 'BooksController@createBook']);
 
 });

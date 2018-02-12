@@ -19,3 +19,16 @@ $faker = Faker\Factory::create();
               'created_at' => Carbon::now(),
               'updated_at' => Carbon::now()
             ]);
+
+
+            $this->validate($request, [
+                    'title' => 'required|unique',
+                    'description' => 'required',
+                    'author' => 'required'
+                  ]);
+                  try {
+                    $book = Book::create($request->all());
+                    return response()->json(['created' => true], $book, 201);
+                  } catch () {
+
+                  }
