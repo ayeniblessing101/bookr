@@ -30,4 +30,6 @@ $router->group(['prefix' => '/api/v1'], function () use ($router) {
 
   $router->post('/books', ['uses' => 'BooksController@createBook']);
 
+  $router->put('/books/{id}', ['uses' => 'BooksController@update']);
+
 });

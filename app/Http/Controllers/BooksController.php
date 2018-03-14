@@ -56,4 +56,8 @@
           'Location' => route('book.get', ['id' => $book->id])
         ]);
     }
+
+    public function update(Request $request, $id) {
+
+    }
   }
